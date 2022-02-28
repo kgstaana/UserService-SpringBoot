@@ -1,8 +1,10 @@
 package com.abaray.auth.application.services;
 
 import com.abaray.auth.core.entities.User;
+import com.abaray.auth.core.enums.AccountStatus;
 import com.abaray.auth.core.repositories.persistence.UserCommandRepository;
 import com.abaray.auth.core.repositories.services.UserCommandService;
+import com.abaray.auth.core.usecases.ChangeAccountStatus;
 import com.abaray.auth.core.usecases.CreateUserUseCase;
 import com.abaray.auth.core.usecases.DeleteUserUseCase;
 import com.abaray.auth.core.usecases.UpdateUserUseCase;
@@ -31,5 +33,11 @@ public class UserCommandServiceImpl implements UserCommandService {
     public int deleteUserByUserId(String id) throws Exception {
         DeleteUserUseCase deleteUserUseCase = new DeleteUserUseCase(userCommandRepository);
         return deleteUserUseCase.execute(id);
+    }
+
+    @Override
+    public int changeAccountStatus(String id, AccountStatus accountStatus) throws Exception {
+        ChangeAccountStatus changeAccountStatus = new ChangeAccountStatus(userCommandRepository);
+        return changeAccountStatus.execute(id, accountStatus);
     }
 }

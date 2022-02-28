@@ -1,5 +1,6 @@
 package com.abaray.auth.application.controllers;
 
+import com.abaray.auth.application.DTOs.AccountStatusDTO;
 import com.abaray.auth.application.DTOs.CreateUserInputDTO;
 import com.abaray.auth.application.DTOs.SuccessResponseDTO;
 import com.abaray.auth.application.DTOs.UpdateUserInputDTO;
@@ -96,8 +97,8 @@ public class UserController {
 
     @PutMapping("{id}")
     public ResponseEntity<SuccessResponseDTO<String>> updateUserDetails(
-            @PathVariable("id") String id,
-            @RequestBody UpdateUserInputDTO userDetails
+        @PathVariable("id") String id,
+        @RequestBody UpdateUserInputDTO userDetails
     ) throws Exception {
         try {
             User user = new User();
@@ -116,6 +117,19 @@ public class UserController {
     public ResponseEntity<Void> deleteUserByUserId(@PathVariable("id") String id) throws Exception {
         try {
             userCommandService.deleteUserByUserId(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<Void> updateAccountStatus(
+        @PathVariable("id") String id,
+        @RequestBody() AccountStatusDTO dto
+    ) throws Exception {
+        try {
+            userCommandService.changeAccountStatus(id, dto.getAccountStatus());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             throw e;

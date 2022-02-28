@@ -18,6 +18,10 @@ public enum UserErrorCode {
 
     USER_400500, // DELETE User Unexpected Error
 
+    USER_ACCOUNT_500400, // PATCH Change Account Status Bad Request
+
+    USER_ACCOUNT_500500, // PATCH Change Account Status Unexpected Error
+
     USER_LIST_100400, // GET User List Bad Request
 
     USER_LIST_100500, // GET User List Unexpected Error

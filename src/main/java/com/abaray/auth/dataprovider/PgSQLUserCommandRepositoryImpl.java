@@ -1,6 +1,7 @@
 package com.abaray.auth.dataprovider;
 
 import com.abaray.auth.core.entities.User;
+import com.abaray.auth.core.enums.AccountStatus;
 import com.abaray.auth.core.enums.UserErrorCode;
 import com.abaray.auth.core.exceptions.DuplicateRecordException;
 import com.abaray.auth.core.exceptions.UnexpectedException;
@@ -21,6 +22,7 @@ public class PgSQLUserCommandRepositoryImpl implements UserCommandRepository {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Override
     public void insertUser(User user) throws DuplicateRecordException, UnexpectedException {
         try {
             UserModel userDetails = modelMapper.map(user, UserModel.class);
@@ -36,6 +38,7 @@ public class PgSQLUserCommandRepositoryImpl implements UserCommandRepository {
         }
     }
 
+    @Override
     public boolean updateUser(String id, User user) throws UnexpectedException {
         try {
             UserModel userDetails = userJpaRepository.findByUserId(id);
@@ -52,11 +55,21 @@ public class PgSQLUserCommandRepositoryImpl implements UserCommandRepository {
         }
     }
 
+    @Override
     public int deleteUserByUserId(String userId) throws UnexpectedException {
         try {
             return userJpaRepository.deleteByUserId(userId);
         } catch(Exception e) {
             throw new UnexpectedException(UserErrorCode.USER_400500.name(), "Unexpected error");
+        }
+    }
+
+    @Override
+    public int changeAccountStatus(String id, AccountStatus accountStatus) throws UnexpectedException {
+        try {
+            return userJpaRepository.changeAccountStatus(id, accountStatus.name());
+        } catch(Exception e) {
+            throw new UnexpectedException(UserErrorCode.USER_ACCOUNT_500500.name(), "Unexpected error");
         }
     }
 }
