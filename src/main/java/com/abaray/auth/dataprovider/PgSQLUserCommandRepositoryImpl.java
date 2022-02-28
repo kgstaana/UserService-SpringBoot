@@ -11,9 +11,9 @@ import com.abaray.auth.dataprovider.orm.repositories.UserJpaRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service()
 public class PgSQLUserCommandRepositoryImpl implements UserCommandRepository {
 
     @Autowired

@@ -7,12 +7,14 @@ import com.abaray.auth.core.repositories.services.UserQueryService;
 import com.abaray.auth.core.usecases.GetUserByIdUseCase;
 import com.abaray.auth.core.usecases.GetUsersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserQueryServiceImpl implements UserQueryService {
 
     @Autowired
+    @Qualifier("PgSQLUserQueryRepositoryImpl")
     private UserQueryRepository userQueryRepository;
 
     @Override
